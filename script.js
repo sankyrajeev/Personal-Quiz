@@ -4,10 +4,10 @@ var questions = [
         question: "Question 1?",
         answer: "answer 1",
         options:[
-            "answer 1",
-            "answer x",
-            "answer y",
-            "answer r"
+            "answer a",
+            "answer b",
+            "answer c",
+            "answer d"
         ]
     },
 
@@ -16,10 +16,10 @@ var questions = [
         question: "Question 2?",
         answer: "answer 1",
         options:[
-            "answer 1",
-            "answer x",
-            "answer y",
-            "answer r"
+            "answer e",
+            "answer f",
+            "answer g",
+            "answer h"
         ]
     },
     {
@@ -88,15 +88,47 @@ function newQuestion(){
 
     var titleEL = document.getElementById('question-title');
 
-    titleEL.textContent = currentQuestion.title;
+    titleEL.textContent = currentQuestion.question;
 
     //choicesEl.innerHTML = '';
 
+    for( var i =0; i < currentQuestion.options.length; i++){
+       // create new button for each choice
+    var choice = currentQuestion.options[i];
+    var choiceNode = document.createElement('button');
+    choiceNode.setAttribute('class', 'choice');
+    choiceNode.setAttribute('value', choice);
+    console.log(choiceNode);
 
-    console.log(titleEL)
+    choiceNode.textContent = i + 1 +'. ' + choice
+    choicesEL.appendChild(choiceNode)
+    }
+
+
+   
 
 }
 
+function clickQuestion(event){
+    document.getElementById('choices').addEventListener('click',function(event))
+    var btnEl = event.target;
+
+    if(btnEl.value !== questions[currentQuestionIndex].answer){
+        //btnEl.setAttribute('button','background-color : green')
+        var text = dcoument.createElement('p');
+        text.textContent = 'hahahahaha';
+        console.log(text);
+
+    }
+    newQuestion();
+}
+
+
 startQuiz();
+clickQuestion();
+
+
+
+choicesEl.onclick = clickQuestion;
 
 
