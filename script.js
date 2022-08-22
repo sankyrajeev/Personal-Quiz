@@ -1,48 +1,39 @@
 var questions = [
     {
         numb: 1,
-        question: "Question 1?",
-        answer: "answer 1",
+        question: "Commonly used data types DO NOT include:",
+        answer: "Alerts",
         options: [
-            "answer 1",
-            "answer b",
-            "answer c",
-            "answer d"
+            'Strings', 'Booleans', 'Alerts', 'Numbers'
         ]
     },
 
     {
         numb: 2,
-        question: "Question 2?",
-        answer: "answer 1",
+        question: "The condition in an if / else statement is enclosed within ____.",
+        answer: "Parentheses",
         options: [
-            "answer e",
-            "answer f",
-            "answer g",
-            "answer h"
+            'Quotes', 'Curly Brackets', 'Parentheses', 'Square brackets'
         ]
     },
     {
         numb: 3,
-        question: "Question 3?",
-        answer: "answer 1",
+        question: "Arrays in JavaScript can be used to store ____.",
+        answer: "All of the Above",
         options: [
-            "answer 1",
-            "answer x",
-            "answer y",
-            "answer r"
+            'Numbers and Strings',
+            'Other Arrays',
+            'Booleans',
+            'All of the Above'
         ]
     },
 
     {
         numb: 4,
-        question: "Question 4?",
-        answer: "answer 1",
+        question: "'String values must be enclosed within ____ when being assigned to variables.'",
+        answer: "Quotes",
         options: [
-            "answer 1",
-            "answer x",
-            "answer y",
-            "answer r"
+            'Commas', 'Curly Brackets', 'Quotes', 'Parentheses'
         ]
     },
 
@@ -53,13 +44,26 @@ var questions = [
 var currentQuestionIndex = 0;
 var time = questions.length * 15;
 var timer
+var finalScore = 0; 
+
+var score = 0;
+
+var endScreenEl = document.getElementById('end-screen');
+endScreenEl.style.visibility = 'hidden';
+
 
 //getting parameters from HTML
 
 var startBtn = document.getElementById('start');
+var initialsEl = document.getElementById('initails');
+var submitBtn = document.getElementById('submit');
 var timerEl = document.getElementById('time');
 var questionsEl = document.getElementById('questions');
 var choicesEL = document.getElementById('choices');
+var feedbackEl = document.getElementById('feedback');
+
+
+//console.log(startBtn);
 
 
 function startQuiz() {
@@ -68,19 +72,25 @@ function startQuiz() {
     //hide element
     startScreenEl.setAttribute('class', 'hide');
 
+    
+
     //shownelement 
-    startScreenEl.removeAttribute('hide');
+    questionsEl.removeAttribute('class');
 
     //start time
 
-    // timer = setInterval(clockTick, 1000);
+    timer = setInterval(clockTick, 1000);
 
     timerEl.textContent = 'Time Left : ' + time + 's';
 
-    newQuestion();
+   // clickQuestion();
+   newQuestion();
+
+
 
 
 }
+
 
 function newQuestion() {
     var currentQuestion = questions[currentQuestionIndex];
@@ -90,7 +100,7 @@ function newQuestion() {
 
     titleEL.textContent = currentQuestion.question;
 
-    //choicesEl.innerHTML = '';
+    choicesEL.innerHTML = '';
 
     for (var i = 0; i < currentQuestion.options.length; i++) {
         // create new button for each choice
@@ -110,33 +120,105 @@ function newQuestion() {
 }
 
 function clickQuestion(event) {
-    document.getElementById('choices').addEventListener('click', function (event) {
+    // document.getElementById('choices').addEventListener('click', function (event) {
         var btnEl = event.target;
-        event.preventDefault();
+        // event.preventDefault();
+
+        if (!btnEl.matches('.choice')) {    //check here later
+            return;
+        }
 
 
         if (btnEl.value !== questions[currentQuestionIndex].answer) {
-            
-            btnEl.setAttribute('style','background-color:red');
+            time -= 15;
+            console.log(time);
+
+            if (time < 0) {
+                time = 0;
+            }
+            timerEl.textContent = 'Time Left : ' + time + 's';;
+
+            //btnEl.setAttribute('style', 'background-color:red');
+            feedbackEl.textContent = 'Wrong Answer!';
+            finalScore -= 5;
+
+
 
         }
-        else
-        {
-            btnEl.setAttribute('style','background-color:green');
+        else {
+            //btnEl.setAttribute('style', 'background-color:green');
+            feedbackEl.textContent = 'That is Correct!';
+            finalScore += 5;
+            console.log(finalScore);
         }
-        
-        
-    });
+
+        currentQuestionIndex++;
+
+        if (time <= 0 || currentQuestionIndex === questions.length) {
+            quizEnd();
+            console.log("LLL");
+            highScores();
+        } else {
+            newQuestion();
+        }
+
+
+
+    
+}
+
+function quizEnd() {
+    // stop timer
+    clearInterval(timer);
+  
+   
+    questionsEl.setAttribute('class', 'hide');
+  }
+
+  function clockTick() {
+    // update time
+    time--;
+    timerEl.textContent = 'Time Left : ' + time + 's';
+  
+    // check if user ran out of time
+    if (time <= 0) {
+      quizEnd();
+    }
+  }
+
+function highScores(){
+    endScreenEl.style.visibility = 'visible';
+    var startScreenEl = document.getElementById('start');
+    startScreenEl.textContent = "";
+    questionsEl.textContent="";
+    timerEl.textContent = 'Time Completed';
+    timerEl.setAttribute('style','color:red');
+
+    theScore = document.getElementById('final')
+    theScore.textContent="The Final Score is :  " + finalScore;
+
+
+}
+
+function saveHighscore(){
+    //var initials = initialsEl.value;
+    //console.log(initials);
+    localStorage.setItem('initials',initials);
+    console.log(initials);
+
+    localStorage.getItem('initials',initials);
+    document.getElementById('yes').textContent = initials;
+
 }
 
 
 
 
-startQuiz();
-clickQuestion();
+//startQuiz();
+//clickQuestion();
 
-
-
-//choicesEl.onclick = clickQuestion;
+startBtn.onclick = startQuiz;
+choicesEL.onclick = clickQuestion;
+submitBtn.onclick = saveHighscore;
 
 

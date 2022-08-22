@@ -47,3 +47,17 @@ a:hover {
   input[type="text"] {
     font-size: 100%;
   }
+
+  #feedback {
+    font-style: italic;
+    font-weight: lighter;
+    color: gray;
+  }
+
+  .choices button {
+    display: block;
+    background-color: #563d7c;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    color: white;
+  }
