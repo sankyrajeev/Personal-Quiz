@@ -48,3 +48,7 @@ var questions = [
 
 
 ]
+
+var yes = document.querySelector('.one');
+
+yes.textContent="blah blah";
