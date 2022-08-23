@@ -20,6 +20,8 @@ Provide a short description explaining the what, why, and how of your project. U
 
 Click on the link and attempt the quiz. Provide your initials and see your high score.
 
+https://sankyrajeev.github.io/Personal-Quiz/
+
 
 
    md![alt text](images/screen1.png)
