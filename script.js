@@ -55,7 +55,7 @@ endScreenEl.style.visibility = 'hidden';
 //getting parameters from HTML
 
 var startBtn = document.getElementById('start');
-var initialsEl = document.getElementById('initails');
+var initialsEl = document.getElementById('initials');
 var submitBtn = document.getElementById('submit');
 var timerEl = document.getElementById('time');
 var questionsEl = document.getElementById('questions');
@@ -70,9 +70,9 @@ function startQuiz() {
     var startScreenEl = document.getElementById('start');
 
     //hide element
-    startScreenEl.setAttribute('class', 'hide');
+    // startScreenEl.setAttribute('class', 'hide');
 
-    
+    startScreenEl.style.visibility = "hidden";
 
     //shownelement 
     questionsEl.removeAttribute('class');
@@ -200,16 +200,39 @@ function highScores(){
 
 }
 
-function saveHighscore(){
-    //var initials = initialsEl.value;
-    //console.log(initials);
-    localStorage.setItem('initials',initials);
-    console.log(initials);
+function saveHighscore() {
+    
+    var initials = initialsEl.value.trim();
+  
+  
+    if (initials !== '') {
+      
+      var highscores =
+        JSON.parse(window.localStorage.getItem('highscores')) || [];
+  
+      
+      var newScore = {
+        score: time,
+        initials: initials,
+      };
+  
+      
+      highscores.push(newScore);
+      window.localStorage.setItem('highscores', JSON.stringify(highscores));
 
-    localStorage.getItem('initials',initials);
-    document.getElementById('yes').textContent = initials;
+      console.log(highScores);
+  
+      
+      window.location.href = 'highscores.html';
+    }
+  }
 
-}
+  function checkForEnter(event) {
+   
+    if (event.key === 'Enter') {
+      saveHighscore();
+    }
+  }
 
 
 
