@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,12 +8,13 @@
     <title>This is My Quiz</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="highscore">
-        <a href="#">View High Scores</a>
+        <!-- <a href="#">View High Scores</a> -->
     </div>
 
-    <div class ="timer">
+    <div class="timer">
         <span id="time">Time : 0</span>
     </div>
     <div class="wrapper">
@@ -25,11 +27,12 @@
             <p>
                 Each question is worth five points and every wrong answer gets you negative five points
             </p>
-            <button id ="start" class="start">Start Quiz</button>
+            <button id="start" class="start">Start Quiz</button>
         </div>
         <div id="questions" class="hide">
-            <h2 id = "question-title"></h2>
-            <div id = "choices" class ="choices"></div>
+            
+            <h2 id="question-title"></h2>
+            <div id="choices" class="choices"></div>
             <div id="feedback"></div>
         </div>
 
@@ -37,16 +40,20 @@
             <h2>All done!</h2>
             <p id="final"></p>
             <p>
-              Enter initials: <input type="text" id="initials" max="3" />
-              <button id="submit">Submit</button>
+                Enter initials: <input type="text" id="initials" max="3" />
+                <button id="submit">Submit</button>
             </p>
             <div id="yes"></div>
-          </div>
+        </div>
+        <div id="finish">
 
-          <h1>Highscores</h1>
-      <ol id="highscores"></ol>
-    
+            <h1>Highscores</h1>
+            <ol id="highscores"></ol>
+            <button id="clear">Clear Highscores</button>
+        </div>
+
     </div>
     <script src="script.js"></script>
 </body>
+
 </html>

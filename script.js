@@ -62,6 +62,12 @@ var questionsEl = document.getElementById('questions');
 var choicesEL = document.getElementById('choices');
 var feedbackEl = document.getElementById('feedback');
 
+var clearEl = document.getElementById('finish');
+clearEl.style.visibility = "hidden";
+
+
+
+
 
 //console.log(startBtn);
 
@@ -73,6 +79,9 @@ function startQuiz() {
     // startScreenEl.setAttribute('class', 'hide');
 
     startScreenEl.style.visibility = "hidden";
+    clearEl.style.visibility = "hidden";
+    // highScoresEl.style.visibility = "hidden";
+    
 
     //shownelement 
     questionsEl.removeAttribute('class');
@@ -201,6 +210,7 @@ function highScores(){
 }
 
 function saveHighscore() {
+    clearEl.style.visibility = "visible";
     
     var initials = initialsEl.value.trim();
   
@@ -212,7 +222,7 @@ function saveHighscore() {
   
       
       var newScore = {
-        score: time,
+        score: finalScore,
         initials: initials,
       };
   
@@ -225,7 +235,7 @@ function saveHighscore() {
       var highscores = JSON.parse(window.localStorage.getItem('highscores')) || [];
 
       for (var i = 0; i < highscores.length; i += 1) {
-        // create li tag for each high score
+       
         var liTag = document.createElement('li');
         liTag.textContent = highscores[i].initials + ' - ' + highscores[i].score;
     
@@ -235,9 +245,19 @@ function saveHighscore() {
       }
   
       
-      //window.location.href = 'highscores.html';
+      
     }
   }
+
+  function clearHighscores() {
+    window.localStorage.removeItem('highscores');
+    window.location.reload();
+  }
+  
+  document.getElementById('clear').onclick = clearHighscores;
+  
+  
+  
 
   function checkForEnter(event) {
    
@@ -249,11 +269,11 @@ function saveHighscore() {
 
 
 
-//startQuiz();
-//clickQuestion();
+
 
 startBtn.onclick = startQuiz;
 choicesEL.onclick = clickQuestion;
 submitBtn.onclick = saveHighscore;
+initialsEl.onkeyup = checkForEnter;
 
 
