@@ -221,9 +221,21 @@ function saveHighscore() {
       window.localStorage.setItem('highscores', JSON.stringify(highscores));
 
       console.log(highScores);
+
+      var highscores = JSON.parse(window.localStorage.getItem('highscores')) || [];
+
+      for (var i = 0; i < highscores.length; i += 1) {
+        // create li tag for each high score
+        var liTag = document.createElement('li');
+        liTag.textContent = highscores[i].initials + ' - ' + highscores[i].score;
+    
+        // display on page
+        var olEl = document.getElementById('highscores');
+        olEl.appendChild(liTag);
+      }
   
       
-      window.location.href = 'highscores.html';
+      //window.location.href = 'highscores.html';
     }
   }
 
